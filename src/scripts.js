@@ -10,6 +10,8 @@ import './images/turing-logo.png'
 import {
     loginButton,
     loadDashBoard,
+    requestTripButton,
+    loadTripRequestPage,
 } from './domUpdates'
 
 import { createFetchRequest, singleFetchRequest } from './apiCalls'
@@ -41,6 +43,11 @@ loginButton.addEventListener('click', () => {
     })
        
 })
+
+requestTripButton.addEventListener('click', () =>{
+    loadTripRequestPage();
+}
+)
  
 
 

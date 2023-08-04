@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +10,23 @@
 <body>
   <div class="login-page" id="loginpage">
     <div class="login-box">
+      <input class="input-name">Name</input>
+      <input class="input-password">Password</input>
       <button class="login-button">Login</button>
     </div>
   </div>
   <div class="dashboard-page hidden">
     <div class="user-trips-box">
-
+      <section class="upcoming-trips">
+        <h2 class="upcoming-header">Upcoming Trips</h2>
+        <button class="request-travel">Find New Trip</button>
+      </section>
+      <div class="previous-trips-box">
+      <section class="last-year-trips">
+      </section>
+      <section class="previous-trips">
+      </section>
+      </div>
     </div>
     <div class="total-cost-box">
       <p class="total-cost"></p>
@@ -28,6 +40,7 @@
   
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
+  
 
 </body>
 </html>
