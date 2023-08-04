@@ -94,6 +94,36 @@
   object-fit: cover;
 }
 
+.travel-request-page{
+  width: 100%;
+  height: 100%;
+  
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.travel-request-inputs{
+  width: 600px;
+  height: 300px;
+  border: 2px solid blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.requested-travel-box{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.display-travel-request-cards{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px;
+}
+
 .hidden{
   display: none;
 }

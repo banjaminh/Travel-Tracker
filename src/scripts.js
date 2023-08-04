@@ -12,6 +12,13 @@ import {
     loadDashBoard,
     requestTripButton,
     loadTripRequestPage,
+    numTravelersInput,
+    numTravelersOutput,
+    submitTravelRequestButton,
+    dateInputField,
+    durationInput,
+    numberOfTravelers,
+    displayRequestedTrips,
 } from './domUpdates'
 
 import { createFetchRequest, singleFetchRequest } from './apiCalls'
@@ -46,11 +53,18 @@ loginButton.addEventListener('click', () => {
 
 requestTripButton.addEventListener('click', () =>{
     loadTripRequestPage();
-}
-)
+})
  
 
-
+submitTravelRequestButton.addEventListener('click', () => {
+    const dateInput = dateInputField.value;
+    const numTravelers = numberOfTravelers.value;
+    const duration = durationInput.value;
+    console.log("DATE:", dateInput);
+    console.log("numTravels:", numTravelers);
+    console.log("Duration:", duration);
+    displayRequestedTrips(dateInput,numTravelers,duration, mainData);
+})
 
 
 

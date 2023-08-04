@@ -1,4 +1,4 @@
-import {calculateTripCost} from './functions'
+import {calculateDestinationCost, calculateTripCost} from './functions'
 
 export const loginButton = document.querySelector('.login-button');
 export const totalCostBox = document.querySelector('.total-cost-box');
@@ -6,10 +6,19 @@ export const userTripsBox = document.querySelector('.user-trips-box');
 export const allLoginPage = document.getElementById('loginpage');
 export const loginBox = document.querySelector('.login-box');
 export const dashboardpage = document.querySelector('.dashboard-page')
+export const travelRequestPage = document.querySelector('.travel-request-page')
 export const lastYearTripsBox = document.querySelector('.last-year-trips');
 export const previousTripsBox = document.querySelector('.previous-trips')
 export const lastYearCostElement = document.querySelector('.total-cost');
 export const requestTripButton = document.querySelector('.request-travel');
+export const durationInput = document.getElementById('duration-input');
+export const durationOutput = document.getElementById('duration-input-value');
+export const dateInputField = document.getElementById('date-input');
+export const numberOfTravelers = document.getElementById('travelers-selection');
+export const submitTravelRequestButton = document.getElementById('travel-request-input-button');
+export const travelRequestArticle = document.querySelector('.travel-request-inputs');
+export const travelRequestDisplayBox = document.querySelector('.requested-travel-box');
+export const requestedDestinationsDisplay = document.querySelector('.display-travel-request-cards')
 
 
 export const loadDashBoard = (mainData) => {
@@ -69,6 +78,38 @@ export const loadDashBoard = (mainData) => {
 export const loadTripRequestPage = () => {
     console.log("TESTTTTT")
     dashboardpage.classList.add('hidden')
+    travelRequestPage.classList.remove('hidden');
+}
+
+export const displayRequestedTrips = (date, travelers, duration, mainData) => {
+    travelRequestArticle.classList.add('hidden');
+    travelRequestDisplayBox.classList.remove('hidden'); 
+    requestedDestinationsDisplay.innerHTML = '';
+    mainData.destinations.forEach(destination => {
+    if(destination.id === 45){
+            return;
+    }
+    
+    
+    let cost = calculateDestinationCost(travelers,duration,destination)
+    requestedDestinationsDisplay.innerHTML += `
+    <article class="trip-card">
+            <h2 class="trip-name">${destination.destination}</h2>
+            <img src=${destination.image}>
+            <p class="traveler-amount">Travelers: ${travelers}</p>
+            <p class="trip-dates">Date: ${date}</p>
+            <p class="trip-duration">Nights: ${duration}</p>
+            <p class="trip-cost">Total Cost: $${cost}</p>
+            <button id=${destination.id}>Request Trip</button>
+        </article>
+        `
+    })
+
 
 }
+
+
+durationInput.addEventListener('input', () => {
+    durationOutput.innerText = durationInput.value;
+})
 
