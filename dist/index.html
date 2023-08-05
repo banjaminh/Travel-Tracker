@@ -16,18 +16,23 @@
     </div>
   </div>
   <div class="dashboard-page hidden">
+    <nav class="dashboard-nav">
+      <button class="request-travel">Find New Trip</button>
+      <button class="request-travel">Find New Trip</button>
+      <button class="request-travel">Find New Trip</button>
+      </nav>
     <div class="user-trips-box">
-      <section class="pending-trips">
+      <section class="pending-trips hidden">
         <h2 class="pending-header">Pending Trips</h2>
         <button class="request-travel">Find New Trip</button>
       </section>
-      <div class="previous-trips-box">
-      <section class="upcoming-trips">
+      
+      <section class="upcoming-trips hidden">
         <h2 class="upcoming-header">Upcoming Trips:</h2>
       </section>
       <section class="previous-trips">
       </section>
-      </div>
+      
     </div>
     <div class="total-cost-box">
       <p class="total-cost"></p>
@@ -65,10 +70,14 @@
       <button id="travel-request-input-button">Search for destinations</button>
     </article>
     <section class="requested-travel-box hidden">
-      <button id="return-to-search">Start new search</button>
+      <button id="return-to-search">Edit search criteria</button>
       <div class="display-travel-request-cards">
-
       </div>
+    </section>
+    <section class="display-booked-vacation hidden">
+      <article class="booked-vacation">
+        
+      </article>
     </section>
   </div>
   

@@ -36,11 +36,11 @@ export const postVacationRequest = (vacation, userID,tripID) => {
           'Content-Type': 'application/json',
         },
       })
-      .then(response => {
-        if(!response.ok){
-            throw new Error('Your request was unsuccessful')
-        }
-        response.json()})
+    //   .then(response => {
+    //     if(!response.ok){
+    //         throw new Error('Your request was unsuccessful')
+    //     }
+    //     response.json()})
       .catch((error) => {
         alert(error);
       });

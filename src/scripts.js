@@ -20,6 +20,8 @@ import {
     numberOfTravelers,
     displayRequestedTrips,
     travelRequestDisplayBox,
+    displayBookedTrip,
+    bookedVacationWindow,
 } from './domUpdates'
 
 import {
@@ -47,10 +49,11 @@ Promise.all(createFetchRequest())
 )
 
 loginButton.addEventListener('click', () => {
-    singleFetchRequest('http://localhost:3001/api/v1/travelers/2')
+    singleFetchRequest('http://localhost:3001/api/v1/travelers/38')
     .then(data => {
         mainData.currentUser = data;
         mainData.userTrips = mainData.trips.filter(trip => trip.userID === mainData.currentUser.id);
+        console.log("USER TRIPS 1ST: ", mainData.userTrips)
         loadDashBoard(mainData);
         getUserTripsWithDestinationInfo(mainData.userTrips, mainData.destinations);
     })
@@ -82,6 +85,29 @@ travelRequestDisplayBox.addEventListener('click', (e) => {
     }
     let chosenVacation = mainData.possibleVacations[target.id];
     postVacationRequest(chosenVacation, mainData.currentUser.id,mainData.trips.length)
+    .then( () => {
+        singleFetchRequest('http://localhost:3001/api/v1/trips')
+        .then(data => {
+            console.log(data)
+            mainData.trips = data.trips;
+            mainData.userTrips = mainData.trips.filter(trip => trip.userID === mainData.currentUser.id);
+            console.log("USER TRIPS AFTER : ",mainData.userTrips)
+            displayBookedTrip(chosenVacation);
+    })
+        .catch(error => console.log(error));
+    })
+})
+
+bookedVacationWindow.addEventListener('click', (e) => {
+    let target = e.target;
+    if(target.tagName === 'BUTTON'){
+        console.log("BUTTON CLICKED");
+        loadDashBoard(mainData);
+
+    }
+    else{
+        return;
+    }
 })
 
 

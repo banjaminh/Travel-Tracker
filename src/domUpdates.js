@@ -19,9 +19,11 @@ export const submitTravelRequestButton = document.getElementById('travel-request
 export const travelRequestArticle = document.querySelector('.travel-request-inputs');
 export const travelRequestDisplayBox = document.querySelector('.requested-travel-box');
 export const requestedDestinationsDisplay = document.querySelector('.display-travel-request-cards')
-
+export const bookedVacationWindow = document.querySelector('.display-booked-vacation');
+export const bookedVacationCard = document.querySelector('.booked-vacation');
 
 export const loadDashBoard = (mainData) => {
+    bookedVacationWindow.classList.add('hidden')
     loginBox.classList.add('hidden');
     allLoginPage.classList.add('hidden')
     dashboardpage.classList.remove('hidden')
@@ -94,6 +96,27 @@ export const displayRequestedTrips = (destinationCards) => {
         `
         cardNum++;})
 }
+
+export const displayBookedTrip = (chosenVacation) => {
+    travelRequestDisplayBox.classList.add('hidden');
+    bookedVacationWindow.classList.remove('hidden');
+    bookedVacationCard.innerHTML = '';
+    bookedVacationCard.innerHTML += `
+    <article class="trip-card">
+            <h2 class="trip-name">${chosenVacation.name}</h2>
+            <img src=${chosenVacation.image}>
+            <p class="traveler-amount">Travelers: ${chosenVacation.travelers}</p>
+            <p class="trip-dates">Date: ${chosenVacation.date}</p>
+            <p class="trip-duration">Nights: ${chosenVacation.duration}</p>
+            <p class="trip-cost">Total Cost: $${chosenVacation.cost}</p>
+            <button class="view-trips">View trips</button>
+        </article>
+        `
+}
+
+
+
+
 
 
 durationInput.addEventListener('input', () => {

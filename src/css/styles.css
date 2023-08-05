@@ -36,15 +36,7 @@
   align-items: center;
 }
 
-.previous-trips-box{
-  width: 70%;
-  height: 800px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  border: 3px solid black;
 
-}
 
 .total-cost-box{
   width: 500px;
@@ -62,14 +54,20 @@
 }
 
 .previous-trips{
-  height: 50%;
+  height: 100%;
+  width: 100%;
   border: 2px solid red;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
 }
 
+.dashboard-nav button{
+  margin-right: 50px;
+}
+
 .dashboard-page{
+  height: 100vh;
   display:flex;
   flex-direction: column;
   justify-content: center;
