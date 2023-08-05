@@ -25,23 +25,22 @@
 }
 
 .user-trips-box{
-  width: 1400px;
-  height: 800px;
   display: flex;
   border: 1px solid rgb(72, 200, 21);
 }
 
-.upcoming-trips{
-  height: 100%;
+.pending-trips{
   width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .previous-trips-box{
-  width: 1200px;
+  width: 70%;
   height: 800px;
   display: flex;
   flex-direction: column;
-  overflow-x: auto;
   flex-wrap: nowrap;
   border: 3px solid black;
 
@@ -53,10 +52,11 @@
   border: 1px solid blue;
 }
 
-.last-year-trips{
+.upcoming-trips{
   display: flex;
   justify-content: space-evenly;
   height: 50%;
+  width: 100%;
   border: 2px solid yellow;
   
 }

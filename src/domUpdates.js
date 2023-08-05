@@ -1,4 +1,4 @@
-import {calculateDestinationCost, calculateTripCost} from './functions'
+import {calculateDestinationCost, calculateTripCost, getUserTripsWithDestinationInfo} from './functions'
 
 export const loginButton = document.querySelector('.login-button');
 export const totalCostBox = document.querySelector('.total-cost-box');
@@ -25,54 +25,49 @@ export const loadDashBoard = (mainData) => {
     loginBox.classList.add('hidden');
     allLoginPage.classList.add('hidden')
     dashboardpage.classList.remove('hidden')
-    const userTrips = mainData.trips.filter(trip => trip.travelers === mainData.currentUser.id)
-    const lastYearTrips = userTrips.filter(trip => trip.date.startsWith("2022"));
-    const previousTrips = userTrips.filter(trip => !trip.date.startsWith("2022"));
-    let lastYearCost = 0;
-    console.log("USER TRIPS: ", previousTrips)
-    lastYearTripsBox.innerHTML = '';
-    lastYearTrips.forEach(trip => {
-        let currentDestination = mainData.destinations.find(destination => trip.destinationID === destination.id);
-        if(currentDestination.id === 45){
-            console.log("TEST")
-            return
-        }
-        let cost = calculateTripCost(trip,currentDestination)
-        lastYearCost += cost;
-        let date = dayjs(trip.date).format('YYYY/MM/DD');
-        let endDate = dayjs(trip.date).add(trip.duration, 'day').format('YYYY/MM/DD');
-        lastYearTripsBox.innerHTML += `
-        <article class="trip-card">
-            <h2 class="trip-name">${currentDestination.destination}</h2>
-            <img src=${currentDestination.image}>
-            <p class="traveler-amount">Travelers: ${trip.travelers}</p>
-            <p class="trip-dates">Dates: ${date} - ${endDate}</p>
-            <p class="trip-cost">Total Cost: $${cost}</p>
-        </article>
-        `
-    })
+    let userTrips = getUserTripsWithDestinationInfo(mainData.userTrips, mainData.destinations);
+    console.log("USERTRIP!!S: ", userTrips)
+    // const userTrips = mainData.trips.filter(trip => trip.userID === mainData.currentUser.id)
+    // const lastYearTrips = userTrips.filter(trip => trip.date.startsWith("2022"));
+    // const previousTrips = userTrips.filter(trip => !trip.date.startsWith("2022"));
+    // let lastYearCost = 0;
+    // console.log("USER TRIPS: ", previousTrips)
+    // lastYearTripsBox.innerHTML = '';
+    // lastYearTrips.forEach(trip => {
+    //     let currentDestination = mainData.destinations.find(destination => trip.destinationID === destination.id);
+    //     if(currentDestination.id === 45){
+    //         console.log("TEST")
+    //         return
+    //     }
+    //     let cost = calculateTripCost(trip,currentDestination)
+    //     lastYearCost += cost;
+    //     let date = dayjs(trip.date).format('YYYY/MM/DD');
+    //     let endDate = dayjs(trip.date).add(trip.duration, 'day').format('YYYY/MM/DD');
+    //     lastYearTripsBox.innerHTML += `
+    //     <article class="trip-card">
+    //         <h2 class="trip-name">${currentDestination.destination}</h2>
+    //         <img src=${currentDestination.image}>
+    //         <p class="traveler-amount">Travelers: ${trip.travelers}</p>
+    //         <p class="trip-dates">Dates: ${date} - ${endDate}</p>
+    //         <p class="trip-cost">Total Cost: $${cost}</p>
+    //     </article>
+    //     `
+    // })
 
     previousTripsBox.innerHTML = '';
-    previousTrips.forEach(trip => {
-        let currentDestination = mainData.destinations.find(destination => trip.destinationID === destination.id);
-        if(currentDestination.id === 45){
-            console.log("TEST")
-            return
-        }
-        let cost = calculateTripCost(trip,currentDestination)
-        let date = dayjs(trip.date).format('YYYY/MM/DD');
-        let endDate = dayjs(trip.date).add(trip.duration, 'day').format('YYYY/MM/DD');
+    userTrips.forEach(trip => {
+        
         previousTripsBox.innerHTML += `
         <article class="trip-card">
-            <h2 class="trip-name">${currentDestination.destination}</h2>
-            <img src=${currentDestination.image}>
+            <h2 class="trip-name">${trip.name}</h2>
+            <img src=${trip.image}>
             <p class="traveler-amount">Travelers: ${trip.travelers}</p>
-            <p class="trip-dates">Dates: ${date} - ${endDate}</p>
-            <p class="trip-cost">Total Cost: $${cost}</p>
+            <p class="trip-dates">Dates: ${trip.dates}</p>
+            <p class="trip-cost">Total Cost: $${trip.cost}</p>
         </article>
         `
     })
-    lastYearCostElement.innerText = `Total costs last year $${lastYearCost}`;
+    lastYearCostElement.innerText = `Total costs this year: $`;
 }
 
 export const loadTripRequestPage = () => {
