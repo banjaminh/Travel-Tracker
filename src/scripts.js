@@ -19,6 +19,7 @@ import {
     durationInput,
     numberOfTravelers,
     displayRequestedTrips,
+    travelRequestDisplayBox,
 } from './domUpdates'
 
 import {
@@ -26,7 +27,11 @@ import {
     makeDestinationCards,
 } from './functions'
 
-import { createFetchRequest, singleFetchRequest } from './apiCalls'
+import { 
+    createFetchRequest, 
+    singleFetchRequest,
+    postVacationRequest,
+ } from './apiCalls'
 
 console.log('This is the JavaScript entry file - your code begins here.');
 
@@ -39,8 +44,6 @@ Promise.all(createFetchRequest())
     mainData.trips = data[1].trips;
     mainData.destinations = data[2].destinations;
     }
-    
-    
 )
 
 loginButton.addEventListener('click', () => {
@@ -59,14 +62,26 @@ requestTripButton.addEventListener('click', () =>{
  
 
 submitTravelRequestButton.addEventListener('click', () => {
-    const dateInput = dateInputField.value;
-    const numTravelers = numberOfTravelers.value;
-    const duration = durationInput.value;
+    const dateInput = dayjs(dateInputField.value).format("YYYY/MM/DD");
+    const numTravelers = parseInt(numberOfTravelers.value);
+    const duration = parseInt(durationInput.value);
     console.log("DATE:", dateInput);
     console.log("numTravels:", numTravelers);
     console.log("Duration:", duration);
-    makeDestinationCards(dateInput,numTravelers,duration, mainData);
-    displayRequestedTrips(dateInput,numTravelers,duration, mainData);
+    mainData.possibleVacations = makeDestinationCards(dateInput,numTravelers,duration, mainData);
+    displayRequestedTrips(mainData.possibleVacations);
+})
+
+travelRequestDisplayBox.addEventListener('click', (e) => {
+    let target = e.target;
+    if(target.tagName === 'BUTTON'){
+        console.log("button clicked");
+    }
+    else{
+        return;
+    }
+    let chosenVacation = mainData.possibleVacations[target.id];
+    postVacationRequest(chosenVacation, mainData.currentUser.id,mainData.trips.length)
 })
 
 

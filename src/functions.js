@@ -28,14 +28,17 @@ export const getUserTripsWithDestinationInfo = (userTrips, destinations) => {
 }
 
 export const makeDestinationCards = (dateInput,numTravelers,durationInput, mainData) => {
-    const destinationCards = mainData.destinations.map(destination => {
+    const destinationsRemove = mainData.destinations.filter(destination => destination.id != 45);
+    const destinationCards = destinationsRemove.map(destination => {
             return {
+                id: destination.id,
                 name: destination.destination,
-                img : destination.image,
+                image : destination.image,
                 travelers : numTravelers,
                 date: dateInput,
                 duration: durationInput,
                 destinationID: destination.id,
+                cost: calculateDestinationCost(numTravelers,durationInput,destination),
             }
     })
     return destinationCards;

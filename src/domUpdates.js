@@ -71,36 +71,28 @@ export const loadDashBoard = (mainData) => {
 }
 
 export const loadTripRequestPage = () => {
-    console.log("TESTTTTT")
     dashboardpage.classList.add('hidden')
     travelRequestPage.classList.remove('hidden');
 }
 
-export const displayRequestedTrips = (date, travelers, duration, mainData) => {
+export const displayRequestedTrips = (destinationCards) => {
     travelRequestArticle.classList.add('hidden');
     travelRequestDisplayBox.classList.remove('hidden'); 
     requestedDestinationsDisplay.innerHTML = '';
-    mainData.destinations.forEach(destination => {
-    if(destination.id === 45){
-            return;
-    }
-    
-    
-    let cost = calculateDestinationCost(travelers,duration,destination)
+    let cardNum = 0;
+    destinationCards.forEach(card => {
     requestedDestinationsDisplay.innerHTML += `
     <article class="trip-card">
-            <h2 class="trip-name">${destination.destination}</h2>
-            <img src=${destination.image}>
-            <p class="traveler-amount">Travelers: ${travelers}</p>
-            <p class="trip-dates">Date: ${date}</p>
-            <p class="trip-duration">Nights: ${duration}</p>
-            <p class="trip-cost">Total Cost: $${cost}</p>
-            <button id=${destination.id}>Request Trip</button>
+            <h2 class="trip-name">${card.name}</h2>
+            <img src=${card.image}>
+            <p class="traveler-amount">Travelers: ${card.travelers}</p>
+            <p class="trip-dates">Date: ${card.date}</p>
+            <p class="trip-duration">Nights: ${card.duration}</p>
+            <p class="trip-cost">Total Cost: $${card.cost}</p>
+            <button id=${cardNum}>Request Trip</button>
         </article>
         `
-    })
-
-
+        cardNum++;})
 }
 
 

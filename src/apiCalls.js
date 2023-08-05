@@ -17,3 +17,32 @@ export const singleFetchRequest = (url) => {
     return fetch(url)
     .then(response => response.json())
 }
+
+export const postVacationRequest = (vacation, userID,tripID) => {
+    let data = {
+        id: tripID+1, 
+        userID: userID, 
+        destinationID: vacation.destinationID, 
+        travelers: vacation.travelers, 
+        date: vacation.date, 
+        duration: vacation.duration, 
+        status: 'pending', 
+        suggestedActivities: [],
+    }
+    return fetch(allTripsUrl, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        if(!response.ok){
+            throw new Error('Your request was unsuccessful')
+        }
+        response.json()})
+      .catch((error) => {
+        alert(error);
+      });
+    
+}
