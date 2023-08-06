@@ -77,8 +77,8 @@ loginButton.addEventListener('click', () => {
         invalidLoginMessage.classList.remove('hidden');
         return
     }
-    console.log("login name ", loginName)
-    singleFetchRequest('http://localhost:3001/api/v1/travelers/38')
+    let id = loginName.slice(8);
+    singleFetchRequest(`http://localhost:3001/api/v1/travelers/${id}`)
     .then(data => {
         mainData.currentUser = data;
         mainData.userTrips = mainData.trips.filter(trip => trip.userID === mainData.currentUser.id);
