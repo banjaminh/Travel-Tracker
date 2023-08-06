@@ -21,6 +21,7 @@ export const getUserTripsWithDestinationInfo = (userTrips, destinations) => {
             travelers : trip.travelers,
             dates : `${date} - ${endDate}`,
             cost : calculateTripCost(trip,currentDestination),
+            status: trip.status,
         }
     })
     console.log("TRIPS : ",fullTripInfo)

@@ -27,6 +27,10 @@ import {
     displayPreviousTrips,
     pendingTripsButton,
     previousTripsButton,
+    displayBookingPage,
+    upcomingTravelButton,
+    displayUpcomingTrips,
+    invalidDateWarning,
 } from './domUpdates'
 
 import {
@@ -70,13 +74,20 @@ requestTripButton.addEventListener('click', () =>{
  
 
 submitTravelRequestButton.addEventListener('click', () => {
-    const dateInput = dayjs(dateInputField.value).format("YYYY/MM/DD");
+    const today = dayjs();
+    const dateInput = dayjs(dateInputField.value);
     const numTravelers = parseInt(numberOfTravelers.value);
     const duration = parseInt(durationInput.value);
+    if(!dateInput.isValid() || dateInput.isBefore(today)){
+        invalidDateWarning.classList.remove('hidden');
+        console.log("WRONG DATE")
+        return;
+    }
+    const formatedDate = dateInput.format("YYYY/MM/DD")
     console.log("DATE:", dateInput);
     console.log("numTravels:", numTravelers);
     console.log("Duration:", duration);
-    mainData.possibleVacations = makeDestinationCards(dateInput,numTravelers,duration, mainData);
+    mainData.possibleVacations = makeDestinationCards(formatedDate,numTravelers,duration, mainData);
     displayRequestedTrips(mainData.possibleVacations);
 })
 
@@ -103,7 +114,7 @@ travelRequestDisplayBox.addEventListener('click', (e) => {
     })
 })
 
-bookedVacationWindow.addEventListener('click', (e) => {
+displayBookingPage.addEventListener('click', (e) => {
     let target = e.target;
     if(target.tagName === 'BUTTON'){
         console.log("BUTTON CLICKED");
@@ -112,6 +123,7 @@ bookedVacationWindow.addEventListener('click', (e) => {
 
     }
     else{
+        console.log("TEST")
         return;
     }
 })
@@ -122,6 +134,10 @@ pendingTripsButton.addEventListener('click' , () => {
 
 previousTripsButton.addEventListener('click', () => {
     displayPreviousTrips();
+})
+
+upcomingTravelButton.addEventListener('click', () =>{
+    displayUpcomingTrips();
 })
 
 
