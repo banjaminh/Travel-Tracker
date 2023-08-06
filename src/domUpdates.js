@@ -30,6 +30,9 @@ export const userName = document.querySelector('.user-name');
 export const upcomingTravelButton = document.querySelector('.upcoming-travel')
 export const upcomingTripsBox = document.querySelector('.upcoming-trips')
 export const invalidDateWarning = document.querySelector('.invalid-date');
+export const returntoDashboardButton = document.querySelector('#return-to-dash');
+export const returnToSearchButton = document.querySelector('#return-to-search');
+export const returnToDashFromSearchButton = document.querySelector('#return-to-dash-from-search');
 
 export const loadDashBoard = (mainData) => {
     displayBookingPage.classList.add('hidden')
@@ -40,6 +43,8 @@ export const loadDashBoard = (mainData) => {
     let userTrips = getUserTripsWithDestinationInfo(mainData.userTrips, mainData.destinations);
     let pendingTrips = userTrips.filter(trip => trip.dates.startsWith("2023") && trip.status === 'pending');
     let pastTrips = userTrips.filter(trip => !trip.dates.startsWith("2023"));
+    let thisYearTrips = userTrips.filter(trip => trip.dates.startsWith("2023"));
+    console.log(thisYearTrips)
     let upcomingTrips = userTrips.filter(trip => {
         let year = trip.dates.slice(0,4);
         console.log("YEAR",year)
@@ -96,6 +101,10 @@ export const loadTripRequestPage = () => {
     travelRequestPage.classList.remove('hidden');
     previousTripsBox.classList.remove('hidden');
     pendingTripsBox.classList.add('hidden')
+    previousTripsButton.classList.add('selected');
+    pendingTripsButton.classList.remove('selected');
+    upcomingTravelButton.classList.remove('selected');
+    upcomingTripsBox.classList.add('hidden');
 }
 
 export const displayRequestedTrips = (destinationCards) => {
@@ -150,6 +159,9 @@ export const displayPendingTrips = () =>{
     pendingTripsBox.classList.remove('hidden');
     upcomingTripsBox.classList.add('hidden');
     previousTripsBox.classList.add('hidden');
+    previousTripsButton.classList.remove('selected');
+    pendingTripsButton.classList.add('selected');
+    upcomingTravelButton.classList.remove('selected');
 
 }
 
@@ -157,12 +169,18 @@ export const displayPreviousTrips = () => {
     pendingTripsBox.classList.add('hidden');
     upcomingTripsBox.classList.add('hidden');
     previousTripsBox.classList.remove('hidden');
+    previousTripsButton.classList.add('selected');
+    pendingTripsButton.classList.remove('selected');
+    upcomingTravelButton.classList.remove('selected');
 }
 
 export const displayUpcomingTrips = () => {
     upcomingTripsBox.classList.remove('hidden');
     pendingTripsBox.classList.add('hidden');
     previousTripsBox.classList.add('hidden');
+    previousTripsButton.classList.remove('selected');
+    pendingTripsButton.classList.remove('selected');
+    upcomingTravelButton.classList.add('selected');
 }
 
 
@@ -170,3 +188,17 @@ durationInput.addEventListener('input', () => {
     durationOutput.innerText = durationInput.value;
 })
 
+export const returnToDashFromSearch = () =>{
+    requestTravelPage.classList.remove('hidden');
+    travelRequestPage.classList.add('hidden');
+}
+
+export const returnToSearch = () =>{
+    travelRequestPage.classList.remove('hidden');
+    requestTravelPage.classList.add('hidden');
+}
+
+export const returnToDashFromSearchDestinations = () => {
+    requestTravelPage.classList.add('hidden');
+    dashboardpage.classList.remove('hidden')
+}

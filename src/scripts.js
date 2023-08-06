@@ -33,6 +33,12 @@ import {
     upcomingTravelButton,
     displayUpcomingTrips,
     invalidDateWarning,
+    returntoDashboardButton,
+    returnToDashFromSearch,
+    returnToSearch,
+    returnToSearchButton,
+    returnToDashFromSearchButton,
+    returnToDashFromSearchDestinations,
 } from './domUpdates'
 
 import {
@@ -96,7 +102,8 @@ submitTravelRequestButton.addEventListener('click', () => {
 
 travelRequestDisplayBox.addEventListener('click', (e) => {
     let target = e.target;
-    if(target.tagName === 'BUTTON'){
+    if(target.tagName === 'BUTTON' && target.id !== 'return-to-search' && target.id !== 'return-to-dash-from-search'){
+        console.log(target)
         console.log("button clicked");
     }
     else{
@@ -143,6 +150,14 @@ upcomingTravelButton.addEventListener('click', () =>{
     displayUpcomingTrips();
 })
 
+returntoDashboardButton.addEventListener('click', () =>{
+    returnToDashFromSearch();
+})
 
+returnToSearchButton.addEventListener('click', () => {
+    returnToSearch();
+})
 
-
+returnToDashFromSearchButton.addEventListener('click', () => {
+    returnToDashFromSearchDestinations();
+})
