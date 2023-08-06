@@ -26,13 +26,14 @@ export const bookedVacationCard = document.querySelector('.booked-vacation');
 export const pendingTripsBox = document.querySelector('.pending-trips')
 export const pendingTripsButton = document.querySelector('.pending-trips-button')
 export const previousTripsButton = document.querySelector('.previous-trips-button')
+export const userName = document.querySelector('.user-name');
 
 export const loadDashBoard = (mainData) => {
     displayBookingPage.classList.add('hidden')
     loginBox.classList.add('hidden');
     allLoginPage.classList.add('hidden')
     dashboardpage.classList.remove('hidden')
-    
+    userName.innerText = mainData.currentUser.name;
     let userTrips = getUserTripsWithDestinationInfo(mainData.userTrips, mainData.destinations);
     let pendingTrips = userTrips.filter(trip => trip.dates.startsWith("2023"));
     let pastTrips = userTrips.filter(trip => !trip.dates.startsWith("2023"));
