@@ -27,6 +27,9 @@ export const pendingTripsBox = document.querySelector('.pending-trips')
 export const pendingTripsButton = document.querySelector('.pending-trips-button')
 export const previousTripsButton = document.querySelector('.previous-trips-button')
 export const userName = document.querySelector('.user-name');
+export const upcomingTravelButton = document.querySelector('.upcoming-travel')
+export const upcomingTripsBox = document.querySelector('.upcoming-trips')
+export const invalidDateWarning = document.querySelector('.invalid-date');
 
 export const loadDashBoard = (mainData) => {
     displayBookingPage.classList.add('hidden')
@@ -35,66 +38,56 @@ export const loadDashBoard = (mainData) => {
     dashboardpage.classList.remove('hidden')
     userName.innerText = mainData.currentUser.name;
     let userTrips = getUserTripsWithDestinationInfo(mainData.userTrips, mainData.destinations);
-    let pendingTrips = userTrips.filter(trip => trip.dates.startsWith("2023"));
+    let pendingTrips = userTrips.filter(trip => trip.dates.startsWith("2023") && trip.status === 'pending');
     let pastTrips = userTrips.filter(trip => !trip.dates.startsWith("2023"));
+    let upcomingTrips = userTrips.filter(trip => {
+        let year = trip.dates.slice(0,4);
+        console.log("YEAR",year)
+        if(parseInt(year) >= 2023 && trip.status === 'approved'){
+            return trip;
+        }
+    })
     console.log("PAST TRIPS: ", pastTrips)
     console.log("PENDING: ", pendingTrips);
     console.log("USERTRIP!!S: ", userTrips);
-    // const userTrips = mainData.trips.filter(trip => trip.userID === mainData.currentUser.id)
-    // const lastYearTrips = userTrips.filter(trip => trip.date.startsWith("2022"));
-    // const previousTrips = userTrips.filter(trip => !trip.date.startsWith("2022"));
-    // let lastYearCost = 0;
-    // console.log("USER TRIPS: ", previousTrips)
-    // lastYearTripsBox.innerHTML = '';
-    // lastYearTrips.forEach(trip => {
-    //     let currentDestination = mainData.destinations.find(destination => trip.destinationID === destination.id);
-    //     if(currentDestination.id === 45){
-    //         console.log("TEST")
-    //         return
-    //     }
-    //     let cost = calculateTripCost(trip,currentDestination)
-    //     lastYearCost += cost;
-    //     let date = dayjs(trip.date).format('YYYY/MM/DD');
-    //     let endDate = dayjs(trip.date).add(trip.duration, 'day').format('YYYY/MM/DD');
-    //     lastYearTripsBox.innerHTML += `
-    //     <article class="trip-card">
-    //         <h2 class="trip-name">${currentDestination.destination}</h2>
-    //         <img src=${currentDestination.image}>
-    //         <p class="traveler-amount">Travelers: ${trip.travelers}</p>
-    //         <p class="trip-dates">Dates: ${date} - ${endDate}</p>
-    //         <p class="trip-cost">Total Cost: $${cost}</p>
-    //     </article>
-    //     `
-    // })
+    
     pendingTripsBox.innerHTML ='';
+    if(pendingTrips.length === 0){
+        pendingTripsBox.innerHTML = `
+        <div class="no-trips">
+        <p>You have no pending trips</p>
+        </div>`
+    }
+    else{
     pendingTrips.forEach(trip => {
         
-        pendingTripsBox.innerHTML += `
-        <article class="trip-card">
-            <img src=${trip.image}>
-            <h2 class="trip-name">${trip.name}</h2>
-            <p class="traveler-amount">Travelers: ${trip.travelers}</p>
-            <p class="trip-dates">Dates: ${trip.dates}</p>
-            <p class="trip-cost">Total Cost: $${trip.cost}</p>
-            <p class="trip-status">Status: ${trip.status}</p>
-        </article>
-        `
-    })
-
+        pendingTripsBox.innerHTML += generateTripCards(trip)
+    })}
 
     previousTripsBox.innerHTML = '';
+    if(pastTrips.length === 0){
+        previousTripsBox.innerHTML = `
+        <div class="no-trips">
+        <p>You have no pending trips</p>
+        </div>`     
+    }
+    else{
     pastTrips.forEach(trip => {
-        
-        previousTripsBox.innerHTML += `
-        <article class="trip-card">
-            <img src=${trip.image}>
-            <h2 class="trip-name">${trip.name}</h2>
-            <p class="traveler-amount">Travelers: ${trip.travelers}</p>
-            <p class="trip-dates">Dates: ${trip.dates}</p>
-            <p class="trip-cost">Total Cost: $${trip.cost}</p>
-        </article>
-        `
-    })
+        previousTripsBox.innerHTML += generateTripCards(trip);
+    })}
+
+    upcomingTripsBox.innerHTML = '';
+    if(upcomingTrips.length === 0){
+        upcomingTripsBox.innerHTML = `
+        <div class="no-trips">
+            <p>You have no upcoming trips</p>
+        </div>`
+    }
+    else{
+        upcomingTrips.forEach(trip => {
+        upcomingTripsBox.innerHTML += generateTripCards(trip);
+       
+    })}
     lastYearCostElement.innerText = `Total costs this year: $`;
 }
 
@@ -112,14 +105,14 @@ export const displayRequestedTrips = (destinationCards) => {
     let cardNum = 0;
     destinationCards.forEach(card => {
     requestedDestinationsDisplay.innerHTML += `
-    <article class="trip-card">
+    <article class="vacation-card">
             <img src=${card.image}>
             <h2 class="trip-name">${card.name}</h2>
             <p class="traveler-amount">Travelers: ${card.travelers}</p>
             <p class="trip-dates">Date: ${card.date}</p>
             <p class="trip-duration">Nights: ${card.duration}</p>
             <p class="trip-cost">Total Cost: $${card.cost}</p>
-            <button id=${cardNum}>Request Trip</button>
+            <button id=${cardNum}>Book this trip</button>
         </article>
         `
         cardNum++;})
@@ -130,30 +123,47 @@ export const displayBookedTrip = (chosenVacation) => {
     displayBookingPage.classList.remove('hidden');
     bookedVacationCard.innerHTML = '';
     bookedVacationCard.innerHTML += `
-    <article class="trip-card">
+    <article class="vacation-card">
             <img src=${chosenVacation.image}>
             <h2 class="trip-name">${chosenVacation.name}</h2>
             <p class="traveler-amount">Travelers: ${chosenVacation.travelers}</p>
             <p class="trip-dates">Date: ${chosenVacation.date}</p>
             <p class="trip-duration">Nights: ${chosenVacation.duration}</p>
             <p class="trip-cost">Total Cost: $${chosenVacation.cost}</p>
-            <button class="view-trips">View trips</button>
         </article>
         `
 }
 
+export const generateTripCards = (trip) => {
+    return `
+    <article class="trip-card">
+        <img src=${trip.image}>
+        <h2 class="trip-name">${trip.name}</h2>
+        <p class="traveler-amount">Travelers: ${trip.travelers}</p>
+        <p class="trip-dates">Dates: ${trip.dates}</p>
+        <p class="trip-cost">Total Cost: $${trip.cost}</p>
+    </article>
+    `
+}
 
 export const displayPendingTrips = () =>{
     pendingTripsBox.classList.remove('hidden');
+    upcomingTripsBox.classList.add('hidden');
     previousTripsBox.classList.add('hidden');
 
 }
 
 export const displayPreviousTrips = () => {
     pendingTripsBox.classList.add('hidden');
+    upcomingTripsBox.classList.add('hidden');
     previousTripsBox.classList.remove('hidden');
 }
 
+export const displayUpcomingTrips = () => {
+    upcomingTripsBox.classList.remove('hidden');
+    pendingTripsBox.classList.add('hidden');
+    previousTripsBox.classList.add('hidden');
+}
 
 
 durationInput.addEventListener('input', () => {

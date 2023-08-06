@@ -24,6 +24,9 @@
   </div>
   <div class="dashboard-page hidden">
     <header class="display-user-info">
+      <div class="dash-board-site-name">
+        <p class="site-name-dashboard">TRAVEL COMPANY NAME</p>
+      </div>
       <div class="total-cost-box">
         <p class="total-cost"></p>
       </div>
@@ -41,7 +44,6 @@
     <div class="user-trips-box">
       <section class="pending-trips hidden">
        </section>
-      
       <section class="upcoming-trips hidden">
       </section>
       <section class="previous-trips">
@@ -55,6 +57,7 @@
       <div class="date-input">
       <label for="date-input">Choose a date:</label>
       <input type="date" id="date-input" name="date-input">
+      <p class="invalid-date hidden">Please enter a future date</p>
       </div>
       <div class="traveler-amount">
       <label for="travelers-selection">How many travelers?</label>
@@ -78,7 +81,9 @@
         <input type="range" id="duration-input" name="duration-input" min="0" max="20" class="slider">
         <output for="duration-input" id="duration-input-value">10</output>
       </div>
+      <div class="travel-input-button-wrapper">
       <button id="travel-request-input-button">Search for destinations</button>
+      </div>
     </article>
   </div>
   <div class="requested-travel-page hidden">
@@ -89,9 +94,14 @@
     </section>
   </div>
   <div class="display-booking-page hidden">
+    <div class="display-booking-header-wrapper">
+      <h2 class="booking-header">Vacation Booked!</h2>
+    </div>
+    <div class="return-dashboard-wrapper">
+      <button class="view-trips">Return to dashboard</button>
+    </div>
     <section class="display-booked-vacation">
       <article class="booked-vacation">
-        
       </article>
     </section>
   </div>
