@@ -87,6 +87,9 @@ submitTravelRequestButton.addEventListener('click', () => {
     console.log("DATE:", dateInput);
     console.log("numTravels:", numTravelers);
     console.log("Duration:", duration);
+    dateInputField.value ='';
+    numberOfTravelers.value = '1';
+    durationInput.value = '10';
     mainData.possibleVacations = makeDestinationCards(formatedDate,numTravelers,duration, mainData);
     displayRequestedTrips(mainData.possibleVacations);
 })
