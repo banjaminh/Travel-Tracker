@@ -9,35 +9,41 @@
 </head>
 <body>
   <div class="login-page" id="loginpage">
+    <h2 class="site-name">TRAVEL COMPANY NAME</h2>
     <div class="login-box">
-      <input class="input-name">Name</input>
-      <input class="input-password">Password</input>
+      <div class="input-box">
+      <label for="input-name">Name:</label>
+      <input id="input-name class="input-name" type="text"/>
+    </div>
+    <div class="input-box">
+      <label for="input-password">Password:</label>
+      <input id="input-password" class="input-password" type="password" />
+    </div>
       <button class="login-button">Login</button>
     </div>
   </div>
   <div class="dashboard-page hidden">
+    <div class="dashboard-content-wrapper">
     <nav class="dashboard-nav">
-      <button class="request-travel">Find New Trip</button>
-      <button class="request-travel">Find New Trip</button>
-      <button class="request-travel">Find New Trip</button>
-      </nav>
+      <button class="dash-nav request-travel">Find New Trip</button>
+      <button class="dash-nav pending-trips-button">Pending Trips</button>
+      <button class="dash-nav previous-trips-button">Previous Trips</button>
+      <button class="dash-nav request-travel">Find New Trip</button>
+      <div class="total-cost-box">
+        <p class="total-cost"></p>
+      </div>
+    </nav>
     <div class="user-trips-box">
       <section class="pending-trips hidden">
-        <h2 class="pending-header">Pending Trips</h2>
-        <button class="request-travel">Find New Trip</button>
-      </section>
+       </section>
       
       <section class="upcoming-trips hidden">
-        <h2 class="upcoming-header">Upcoming Trips:</h2>
       </section>
       <section class="previous-trips">
       </section>
       
     </div>
-    <div class="total-cost-box">
-      <p class="total-cost"></p>
-    </div>
-
+  </div>
   </div>
   <div class="travel-request-page hidden">
     <article class="travel-request-inputs">
@@ -69,17 +75,22 @@
       </div>
       <button id="travel-request-input-button">Search for destinations</button>
     </article>
-    <section class="requested-travel-box hidden">
+  </div>
+  <div class="requested-travel-page hidden">
+    <section class="requested-travel-box">
       <button id="return-to-search">Edit search criteria</button>
       <div class="display-travel-request-cards">
       </div>
     </section>
-    <section class="display-booked-vacation hidden">
+  </div>
+  <div class="display-booking-page hidden">
+    <section class="display-booked-vacation">
       <article class="booked-vacation">
         
       </article>
     </section>
   </div>
+  
   
   
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->

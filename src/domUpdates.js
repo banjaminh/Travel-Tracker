@@ -18,17 +18,27 @@ export const numberOfTravelers = document.getElementById('travelers-selection');
 export const submitTravelRequestButton = document.getElementById('travel-request-input-button');
 export const travelRequestArticle = document.querySelector('.travel-request-inputs');
 export const travelRequestDisplayBox = document.querySelector('.requested-travel-box');
+export const requestTravelPage = document.querySelector('.requested-travel-page')
 export const requestedDestinationsDisplay = document.querySelector('.display-travel-request-cards')
 export const bookedVacationWindow = document.querySelector('.display-booked-vacation');
+export const displayBookingPage = document.querySelector('.display-booking-page')
 export const bookedVacationCard = document.querySelector('.booked-vacation');
+export const pendingTripsBox = document.querySelector('.pending-trips')
+export const pendingTripsButton = document.querySelector('.pending-trips-button')
+export const previousTripsButton = document.querySelector('.previous-trips-button')
 
 export const loadDashBoard = (mainData) => {
-    bookedVacationWindow.classList.add('hidden')
+    displayBookingPage.classList.add('hidden')
     loginBox.classList.add('hidden');
     allLoginPage.classList.add('hidden')
     dashboardpage.classList.remove('hidden')
+    
     let userTrips = getUserTripsWithDestinationInfo(mainData.userTrips, mainData.destinations);
-    console.log("USERTRIP!!S: ", userTrips)
+    let pendingTrips = userTrips.filter(trip => trip.dates.startsWith("2023"));
+    let pastTrips = userTrips.filter(trip => !trip.dates.startsWith("2023"));
+    console.log("PAST TRIPS: ", pastTrips)
+    console.log("PENDING: ", pendingTrips);
+    console.log("USERTRIP!!S: ", userTrips);
     // const userTrips = mainData.trips.filter(trip => trip.userID === mainData.currentUser.id)
     // const lastYearTrips = userTrips.filter(trip => trip.date.startsWith("2022"));
     // const previousTrips = userTrips.filter(trip => !trip.date.startsWith("2022"));
@@ -55,14 +65,29 @@ export const loadDashBoard = (mainData) => {
     //     </article>
     //     `
     // })
+    pendingTripsBox.innerHTML ='';
+    pendingTrips.forEach(trip => {
+        
+        pendingTripsBox.innerHTML += `
+        <article class="trip-card">
+            <img src=${trip.image}>
+            <h2 class="trip-name">${trip.name}</h2>
+            <p class="traveler-amount">Travelers: ${trip.travelers}</p>
+            <p class="trip-dates">Dates: ${trip.dates}</p>
+            <p class="trip-cost">Total Cost: $${trip.cost}</p>
+            <p class="trip-status">Status: ${trip.status}</p>
+        </article>
+        `
+    })
+
 
     previousTripsBox.innerHTML = '';
-    userTrips.forEach(trip => {
+    pastTrips.forEach(trip => {
         
         previousTripsBox.innerHTML += `
         <article class="trip-card">
-            <h2 class="trip-name">${trip.name}</h2>
             <img src=${trip.image}>
+            <h2 class="trip-name">${trip.name}</h2>
             <p class="traveler-amount">Travelers: ${trip.travelers}</p>
             <p class="trip-dates">Dates: ${trip.dates}</p>
             <p class="trip-cost">Total Cost: $${trip.cost}</p>
@@ -75,18 +100,20 @@ export const loadDashBoard = (mainData) => {
 export const loadTripRequestPage = () => {
     dashboardpage.classList.add('hidden')
     travelRequestPage.classList.remove('hidden');
+    previousTripsBox.classList.remove('hidden');
+    pendingTripsBox.classList.add('hidden')
 }
 
 export const displayRequestedTrips = (destinationCards) => {
-    travelRequestArticle.classList.add('hidden');
-    travelRequestDisplayBox.classList.remove('hidden'); 
+    travelRequestPage.classList.add('hidden');
+    requestTravelPage.classList.remove('hidden'); 
     requestedDestinationsDisplay.innerHTML = '';
     let cardNum = 0;
     destinationCards.forEach(card => {
     requestedDestinationsDisplay.innerHTML += `
     <article class="trip-card">
-            <h2 class="trip-name">${card.name}</h2>
             <img src=${card.image}>
+            <h2 class="trip-name">${card.name}</h2>
             <p class="traveler-amount">Travelers: ${card.travelers}</p>
             <p class="trip-dates">Date: ${card.date}</p>
             <p class="trip-duration">Nights: ${card.duration}</p>
@@ -98,13 +125,13 @@ export const displayRequestedTrips = (destinationCards) => {
 }
 
 export const displayBookedTrip = (chosenVacation) => {
-    travelRequestDisplayBox.classList.add('hidden');
-    bookedVacationWindow.classList.remove('hidden');
+    requestTravelPage.classList.add('hidden');
+    displayBookingPage.classList.remove('hidden');
     bookedVacationCard.innerHTML = '';
     bookedVacationCard.innerHTML += `
     <article class="trip-card">
-            <h2 class="trip-name">${chosenVacation.name}</h2>
             <img src=${chosenVacation.image}>
+            <h2 class="trip-name">${chosenVacation.name}</h2>
             <p class="traveler-amount">Travelers: ${chosenVacation.travelers}</p>
             <p class="trip-dates">Date: ${chosenVacation.date}</p>
             <p class="trip-duration">Nights: ${chosenVacation.duration}</p>
@@ -115,7 +142,16 @@ export const displayBookedTrip = (chosenVacation) => {
 }
 
 
+export const displayPendingTrips = () =>{
+    pendingTripsBox.classList.remove('hidden');
+    previousTripsBox.classList.add('hidden');
 
+}
+
+export const displayPreviousTrips = () => {
+    pendingTripsBox.classList.add('hidden');
+    previousTripsBox.classList.remove('hidden');
+}
 
 
 

@@ -22,6 +22,11 @@ import {
     travelRequestDisplayBox,
     displayBookedTrip,
     bookedVacationWindow,
+    changeDisplay,
+    displayPendingTrips,
+    displayPreviousTrips,
+    pendingTripsButton,
+    previousTripsButton,
 } from './domUpdates'
 
 import {
@@ -102,12 +107,21 @@ bookedVacationWindow.addEventListener('click', (e) => {
     let target = e.target;
     if(target.tagName === 'BUTTON'){
         console.log("BUTTON CLICKED");
+        
         loadDashBoard(mainData);
 
     }
     else{
         return;
     }
+})
+
+pendingTripsButton.addEventListener('click' , () => {
+    displayPendingTrips();
+})
+
+previousTripsButton.addEventListener('click', () => {
+    displayPreviousTrips();
 })
 
 
