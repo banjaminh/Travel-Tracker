@@ -7,6 +7,8 @@ import './css/styles.css';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
+import './images/user.png'
+
 import {
     loginButton,
     loadDashBoard,
@@ -83,10 +85,8 @@ submitTravelRequestButton.addEventListener('click', () => {
         console.log("WRONG DATE")
         return;
     }
+    invalidDateWarning.classList.add('hidden');
     const formatedDate = dateInput.format("YYYY/MM/DD")
-    console.log("DATE:", dateInput);
-    console.log("numTravels:", numTravelers);
-    console.log("Duration:", duration);
     dateInputField.value ='';
     numberOfTravelers.value = '1';
     durationInput.value = '10';
