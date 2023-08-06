@@ -1,7 +1,7 @@
 export const calculateTripCost = (trip,destination) => {
     let total = ((trip.travelers)*(destination.estimatedFlightCostPerPerson) + (trip.duration)*(destination.estimatedLodgingCostPerDay));
     let afterFee = total*1.1;
-    return afterFee.toFixed(2);
+    return (afterFee.toFixed(2));
 } 
 
 export const calculateDestinationCost = (travelers,duration,destination) => {
@@ -43,4 +43,12 @@ export const makeDestinationCards = (dateInput,numTravelers,durationInput, mainD
             }
     })
     return destinationCards;
+}
+
+export const calculaterYearlyCost = (trips) => {
+    const total = trips.reduce((acc, trip) => {
+        acc += Number(trip.cost);
+        return acc;
+    }, 0)
+    return total.toFixed(2)
 }

@@ -1,4 +1,9 @@
-import {calculateDestinationCost, calculateTripCost, getUserTripsWithDestinationInfo} from './functions'
+import {
+    calculateDestinationCost, 
+    calculateTripCost, 
+    getUserTripsWithDestinationInfo, 
+    calculaterYearlyCost} 
+    from './functions'
 
 export const loginButton = document.querySelector('.login-button');
 export const totalCostBox = document.querySelector('.total-cost-box');
@@ -9,7 +14,7 @@ export const dashboardpage = document.querySelector('.dashboard-page')
 export const travelRequestPage = document.querySelector('.travel-request-page')
 export const lastYearTripsBox = document.querySelector('.last-year-trips');
 export const previousTripsBox = document.querySelector('.previous-trips')
-export const lastYearCostElement = document.querySelector('.total-cost');
+export const thisYearCostElement = document.querySelector('.total-cost');
 export const requestTripButton = document.querySelector('.request-travel');
 export const durationInput = document.getElementById('duration-input');
 export const durationOutput = document.getElementById('duration-input-value');
@@ -44,7 +49,9 @@ export const loadDashBoard = (mainData) => {
     let pendingTrips = userTrips.filter(trip => trip.dates.startsWith("2023") && trip.status === 'pending');
     let pastTrips = userTrips.filter(trip => !trip.dates.startsWith("2023"));
     let thisYearTrips = userTrips.filter(trip => trip.dates.startsWith("2023"));
-    console.log(thisYearTrips)
+    let yearlySpent = calculaterYearlyCost(thisYearTrips)
+    console.log("This year trips: ",thisYearTrips)
+    console.log("yearlySpent: " ,yearlySpent)
     let upcomingTrips = userTrips.filter(trip => {
         let year = trip.dates.slice(0,4);
         console.log("YEAR",year)
@@ -93,7 +100,7 @@ export const loadDashBoard = (mainData) => {
         upcomingTripsBox.innerHTML += generateTripCards(trip);
        
     })}
-    lastYearCostElement.innerText = `Total costs this year: $`;
+    thisYearCostElement.innerText = `Total costs this year: $${yearlySpent}`;
 }
 
 export const loadTripRequestPage = () => {
