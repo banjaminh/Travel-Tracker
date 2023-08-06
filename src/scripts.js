@@ -39,11 +39,15 @@ import {
     returnToSearchButton,
     returnToDashFromSearchButton,
     returnToDashFromSearchDestinations,
+    inputNameField,
+    inputPasswordField,
+    invalidLoginMessage,
 } from './domUpdates'
 
 import {
     getUserTripsWithDestinationInfo,
     makeDestinationCards,
+    validateLogin,
 } from './functions'
 
 import { 
@@ -52,7 +56,7 @@ import {
     postVacationRequest,
  } from './apiCalls'
 
-console.log('This is the JavaScript entry file - your code begins here.');
+
 
 
 const mainData = {};
@@ -66,11 +70,18 @@ Promise.all(createFetchRequest())
 )
 
 loginButton.addEventListener('click', () => {
+    let loginName = inputNameField.value;
+    let loginPass = inputPasswordField.value;
+    if(validateLogin(loginName, loginPass) !== true){
+        console.log("BAD LOGIN");
+        invalidLoginMessage.classList.remove('hidden');
+        return
+    }
+    console.log("login name ", loginName)
     singleFetchRequest('http://localhost:3001/api/v1/travelers/38')
     .then(data => {
         mainData.currentUser = data;
         mainData.userTrips = mainData.trips.filter(trip => trip.userID === mainData.currentUser.id);
-        console.log("USER TRIPS 1ST: ", mainData.userTrips)
         loadDashBoard(mainData);
         getUserTripsWithDestinationInfo(mainData.userTrips, mainData.destinations);
     })
@@ -88,7 +99,6 @@ submitTravelRequestButton.addEventListener('click', () => {
     const duration = parseInt(durationInput.value);
     if(!dateInput.isValid() || dateInput.isBefore(today)){
         invalidDateWarning.classList.remove('hidden');
-        console.log("WRONG DATE")
         return;
     }
     invalidDateWarning.classList.add('hidden');
@@ -103,8 +113,7 @@ submitTravelRequestButton.addEventListener('click', () => {
 travelRequestDisplayBox.addEventListener('click', (e) => {
     let target = e.target;
     if(target.tagName === 'BUTTON' && target.id !== 'return-to-search' && target.id !== 'return-to-dash-from-search'){
-        console.log(target)
-        console.log("button clicked");
+
     }
     else{
         return;
@@ -114,10 +123,8 @@ travelRequestDisplayBox.addEventListener('click', (e) => {
     .then( () => {
         singleFetchRequest('http://localhost:3001/api/v1/trips')
         .then(data => {
-            console.log(data)
             mainData.trips = data.trips;
             mainData.userTrips = mainData.trips.filter(trip => trip.userID === mainData.currentUser.id);
-            console.log("USER TRIPS AFTER : ",mainData.userTrips)
             displayBookedTrip(chosenVacation);
     })
         .catch(error => console.log(error));
@@ -127,13 +134,10 @@ travelRequestDisplayBox.addEventListener('click', (e) => {
 displayBookingPage.addEventListener('click', (e) => {
     let target = e.target;
     if(target.tagName === 'BUTTON'){
-        console.log("BUTTON CLICKED");
-        
-        loadDashBoard(mainData);
-
+       loadDashBoard(mainData);
     }
     else{
-        console.log("TEST")
+        
         return;
     }
 })

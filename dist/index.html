@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +16,16 @@
     <div class="login-box">
       <div class="input-box">
       <label for="input-name">Name:</label>
-      <input id="input-name class="input-name" type="text"/>
+      <input id="input-name" class="input-name" type="text"/>
     </div>
     <div class="input-box">
       <label for="input-password">Password:</label>
       <input id="input-password" class="input-password" type="password" />
     </div>
       <button class="login-button">Login</button>
+      <div class="invalid-login-box">
+      <p class="invalid-login hidden" id="invalid-login">Invalid credentials</p>
+      </div>
     </div>
   </div>
   <div class="dashboard-page hidden">

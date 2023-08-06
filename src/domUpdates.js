@@ -38,6 +38,9 @@ export const invalidDateWarning = document.querySelector('.invalid-date');
 export const returntoDashboardButton = document.querySelector('#return-to-dash');
 export const returnToSearchButton = document.querySelector('#return-to-search');
 export const returnToDashFromSearchButton = document.querySelector('#return-to-dash-from-search');
+export const inputNameField = document.querySelector('#input-name');
+export const inputPasswordField = document.querySelector('#input-password');
+export const invalidLoginMessage = document.querySelector('#invalid-login');
 
 export const loadDashBoard = (mainData) => {
     displayBookingPage.classList.add('hidden')
@@ -50,18 +53,12 @@ export const loadDashBoard = (mainData) => {
     let pastTrips = userTrips.filter(trip => !trip.dates.startsWith("2023"));
     let thisYearTrips = userTrips.filter(trip => trip.dates.startsWith("2023"));
     let yearlySpent = calculaterYearlyCost(thisYearTrips)
-    console.log("This year trips: ",thisYearTrips)
-    console.log("yearlySpent: " ,yearlySpent)
     let upcomingTrips = userTrips.filter(trip => {
         let year = trip.dates.slice(0,4);
-        console.log("YEAR",year)
         if(parseInt(year) >= 2023 && trip.status === 'approved'){
             return trip;
         }
     })
-    console.log("PAST TRIPS: ", pastTrips)
-    console.log("PENDING: ", pendingTrips);
-    console.log("USERTRIP!!S: ", userTrips);
     
     pendingTripsBox.innerHTML ='';
     if(pendingTrips.length === 0){
@@ -196,7 +193,7 @@ durationInput.addEventListener('input', () => {
 })
 
 export const returnToDashFromSearch = () =>{
-    requestTravelPage.classList.remove('hidden');
+    dashboardpage.classList.remove('hidden');
     travelRequestPage.classList.add('hidden');
 }
 
