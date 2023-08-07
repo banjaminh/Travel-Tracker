@@ -61,6 +61,7 @@ import {
 
 const mainData = {};
 
+document.addEventListener("DOMContentLoaded", () => {
 Promise.all(createFetchRequest())
 .then( (data) => {
     mainData.travelers = data[0].travelers;
@@ -68,6 +69,7 @@ Promise.all(createFetchRequest())
     mainData.destinations = data[2].destinations;
     }
 )
+});
 
 loginButton.addEventListener('click', () => {
     let loginName = inputNameField.value;

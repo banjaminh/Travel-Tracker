@@ -91,6 +91,9 @@ body{
     transform: translateY(1px);
   }
 
+.dash-board-site-name{
+  margin-left: 20px;
+}
 
 .user-trips-box{
     height:auto;
