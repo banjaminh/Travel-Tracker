@@ -1,101 +1,77 @@
-# Webpack Starter Kit
+# Travel Tracker
+## 📝 Description
+Travel Tracker is an application that organizes a users travel data and allows the booking of new travel plans. 
 
-## Clone This Repo
+## Context
+Travel Tracker is the final solo project from Module 2 at Turing School of Software & Design.  It was completed over the course of one week.  
 
-That's right, _clone_ not fork. You will use this repo multiple times, but you can only fork a repository once. So here is what you need to do to clone the repo and still be able to push changes to your repo:
 
-1. Clone down this repo. Since you don't want to name your project "webpack-starter-kit", you can use an optional argument when you run `git clone` (you replace the `[...]` with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Remove the default remote: `git remote rm origin` (notice that `git remote -v` not gives you back nothing)
-1. Create a new repo on GitHub with the name of `[what you want to name the repo]` to be consistent with naming
-1. Copy the address that you would use to clone down this repo - something like `git@github.com:...`
-1. Add this remote to your cloned down repo: `git remote add origin [address you copied in the previous step]` - do not include the brackets
+### User Experience Design Process: 
 
-Now try to commit something (just add a line in the README) and push it up to your new repo. If everything is setup correctly, you should see the changes on GitHub.
+At the start of the project we combined several design inspirations and came up with a wireframe for our User-Interface.  
 
-## Setup
+We did usability testing to learn more about what parts of our site were unclear to first-time users and revised the html and css to be more legible.  
 
-After one person has gone through the steps of cloning down this repo and editing the remote, everyone should clone down the repo.
+### Use of Web APIs:  
 
-Then install the library dependencies. Run:
+We learned to implement 3rd party javascript libraries including chart.js and SortableJS. 
 
-```bash
-npm install
-```
+This project was our first chance to practice accessing and updating API datasets using GET and POST requests.  
 
-To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page with the Turing logo image and a beautiful gradient background. If that's the case, you're good to go. Enter `control + c` in your terminal to stop the server at any time.
 
-## Where to Add Your Code
+## Learning Goals and Objectives
+### Week One:
+1. Use object and array prototype methods to perform data manipulation.  
+2. Create a user interface that is easy to use and displays information in a clear way.  
+3. Write DRY, reusable code that follows SRP and trends toward function purity. 
+4. Implement a robust testing suite using TDD.  
+5. Make network requests to retrieve data.  
+6. Collaborate productively and professionally as a team. Ensure all team members are able to be heard and contribute throughout the project.
 
-### JavaScript
+### Week Two:
+1. Work with a local server and make network requests to API endpoints to retrieve and manipulate data.  
+2.  Ensure your app follows best practices for accessibility.  
+3.  Implement feedback from a usability test to improve product.
 
-You have to be very intentional with where you add your feature code. This repo uses a tool called [webpack](https://webpack.js.org/) to combine many JavaScript files into one big file. Webpack enables you to have many, separate JavaScript files to keep your code organized and readable. Webpack expects all of your code files to be in a specific place, or else it doesn't know how to combine them all behind the scenes.
+## Authors
+* **Banjamin Hatch** -  [banjaminh](https://github.com/banjaminh)
 
-**Create all of your feature code files in the `src` directory.**
 
-Since code is separated into multiple files, you need to use the `import` and `export` syntax to share code across file.
+## 📷 Preview
+![FitLit_Preview](https://user-images.githubusercontent.com/130857864/257337005-add85e35-e412-4629-82bd-51f99e63ff4d.gif)
 
-Here is a video that walks through some information about [import and export](https://www.youtube.com/watch?v=_3oSWwapPKQ). There are a lot of resources out there about `import` and `export`, and resources will sometimes call them `ES6 modules`. It's something you will see in React and beyond.
 
-### HTML
+## 💻 Technologies Used
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/-CSS-05122A?style=flat&logo=css3)
+![Git](https://img.shields.io/badge/-Git-05122A?style=flat&logo=git)
+![Github](https://img.shields.io/badge/-GitHub-05122A?style=flat&logo=github)
+![VSCode](https://img.shields.io/badge/-VS_Code-05122A?style=flat&logo=visualstudio)
+![Mocha](https://img.shields.io/badge/mocha.js-323330?style=for-the-badge&logo=mocha&logoColor=Brown)
+![Chai](https://img.shields.io/badge/chai.js-323330?style=for-the-badge&logo=chai&logoColor=red)
 
-Add the HTML you need in the `index.html` file in the `./dist` directory. There is some boilerplate HTML that exists from the start that you can modify.
 
-### Images
+## Installation and Setup Instructions
 
-Add your image files in the `src/images` directory. Similar to CSS files, you need to `import` image files in the JavaScript entry file (`scripts.js`). Then go into the HTML and add an `img` element with the `src` attribute pointing to the `images` directory. There is an example in the `index.html` file for you to see.
+Clone down this repository to run the front-end application. Additionally, you will need to navigate to this 
+[back-end api] (https://github.com/turingschool-examples/travel-tracker-api.git)
+), and follow the set-up instructions. 
 
-## How to View Your Code in Action
+You will need `npm` installed globally on your machine.  
 
-In the terminal, run:
+Installation:
+ Open your teminal, and follow the instructions for the back-end api. Once the api is running on your local server, open a second tab in your terminal, navigate to where you cloned down the front-end repository, and run `npm install`  
 
-```bash
-npm start
-```
+To Start Server:
 
-You will see a bunch of lines output to your terminal. One of those lines will be something like:
+`npm start`
 
-```bash
-Project is running at http://localhost:8080/
-```
+Paste this link into your web browser:
 
-Go to `http://localhost:8080/` in your browser to view your code running in the browser.
+`http://localhost:8080/`
 
----
 
-## Test Files Organization
+To Run Test Suite:
 
-Similar to feature code, your test code needs to be put in a specific place for it to run successfully.
-
-**Put all of your test files in the `test` directory.** As a convention, all test filenames should end with `-test.js`. For instance: `box-test.js`.
-
-## Running Your Tests
-
-Run your test suite using the command:
-
-```bash
-npm test
-```
-
-The test results will output to the terminal.
-
----
-
-## Linting Your Code
-
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
-
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory.
-
-## Webpack?
-
-If you look in the `package.json` file, you'll see one of the library dependencies called `webpack`. If you're interested in learning more about what Webpack is and how it works behind the scenes, take a look through the [Webpack configuration documentation](https://webpack.js.org/concepts/).
-
-## Deploying to GitHub Pages
-
-_If you are finished with the functionality and testing of your project_, then you can consider deploying your project to the web! This way anyone can play it without cloning down your repo.
-
-[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
-
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
-
-first commit
+`npm test`
