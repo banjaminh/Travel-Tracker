@@ -44,7 +44,15 @@ body{
   margin-top:10px;
   border-radius: 5px;
   border: 1px solid grey;
-  width: 80px;
+  width: 120px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.login-button:hover{
+  background: linear-gradient(to bottom, #e0e0e0, #f5f5f5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(1px);
 }
 
 .input-box label {
@@ -88,6 +96,7 @@ body{
     height:auto;
     display: flex;
     grid-gap: 20px;
+    justify-content: center;
 }
 
 .pending-trips{
@@ -101,6 +110,11 @@ body{
 .user-name{
   color: green;
   margin-right: 50px;
+}
+
+.login-inputs{
+  height: 35px;
+  width: 150px;
 }
 
 
