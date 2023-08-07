@@ -1,7 +1,7 @@
 export const calculateTripCost = (trip,destination) => {
     let total = ((trip.travelers)*(destination.estimatedFlightCostPerPerson) + (trip.duration)*(destination.estimatedLodgingCostPerDay));
     let afterFee = total*1.1;
-    return afterFee.toFixed(2);
+    return (afterFee.toFixed(2));
 } 
 
 export const calculateDestinationCost = (travelers,duration,destination) => {
@@ -43,4 +43,28 @@ export const makeDestinationCards = (dateInput,numTravelers,durationInput, mainD
             }
     })
     return destinationCards;
+}
+
+export const calculaterYearlyCost = (trips) => {
+    const total = trips.reduce((acc, trip) => {
+        acc += Number(trip.cost);
+        return acc;
+    }, 0)
+    return total.toFixed(2)
+}
+
+export const validateLogin = (name,pass) => {
+    let firstEight = name.slice(0,8);
+    let idNum = Number(name.slice(8));
+    if(pass !== 'travel'){
+        return false;
+    }
+    if(Number.isInteger(idNum) && firstEight === 'traveler' && idNum < 51 && idNum > 0){
+        console.log("Good LOGIN");
+        return true;
+    }
+    else if (firstEight !== 'traveler' || idNum < 1 || idNum > 50 || Number.isInteger(idNum) !== true){
+        console.log("BAD LOGIN");
+        return false;
+    }
 }

@@ -1,4 +1,9 @@
-import {calculateDestinationCost, calculateTripCost, getUserTripsWithDestinationInfo} from './functions'
+import {
+    calculateDestinationCost, 
+    calculateTripCost, 
+    getUserTripsWithDestinationInfo, 
+    calculaterYearlyCost} 
+    from './functions'
 
 export const loginButton = document.querySelector('.login-button');
 export const totalCostBox = document.querySelector('.total-cost-box');
@@ -9,7 +14,7 @@ export const dashboardpage = document.querySelector('.dashboard-page')
 export const travelRequestPage = document.querySelector('.travel-request-page')
 export const lastYearTripsBox = document.querySelector('.last-year-trips');
 export const previousTripsBox = document.querySelector('.previous-trips')
-export const lastYearCostElement = document.querySelector('.total-cost');
+export const thisYearCostElement = document.querySelector('.total-cost');
 export const requestTripButton = document.querySelector('.request-travel');
 export const durationInput = document.getElementById('duration-input');
 export const durationOutput = document.getElementById('duration-input-value');
@@ -30,6 +35,12 @@ export const userName = document.querySelector('.user-name');
 export const upcomingTravelButton = document.querySelector('.upcoming-travel')
 export const upcomingTripsBox = document.querySelector('.upcoming-trips')
 export const invalidDateWarning = document.querySelector('.invalid-date');
+export const returntoDashboardButton = document.querySelector('#return-to-dash');
+export const returnToSearchButton = document.querySelector('#return-to-search');
+export const returnToDashFromSearchButton = document.querySelector('#return-to-dash-from-search');
+export const inputNameField = document.querySelector('#input-name');
+export const inputPasswordField = document.querySelector('#input-password');
+export const invalidLoginMessage = document.querySelector('#invalid-login');
 
 export const loadDashBoard = (mainData) => {
     displayBookingPage.classList.add('hidden')
@@ -40,16 +51,14 @@ export const loadDashBoard = (mainData) => {
     let userTrips = getUserTripsWithDestinationInfo(mainData.userTrips, mainData.destinations);
     let pendingTrips = userTrips.filter(trip => trip.dates.startsWith("2023") && trip.status === 'pending');
     let pastTrips = userTrips.filter(trip => !trip.dates.startsWith("2023"));
+    let thisYearTrips = userTrips.filter(trip => trip.dates.startsWith("2023"));
+    let yearlySpent = calculaterYearlyCost(thisYearTrips)
     let upcomingTrips = userTrips.filter(trip => {
         let year = trip.dates.slice(0,4);
-        console.log("YEAR",year)
         if(parseInt(year) >= 2023 && trip.status === 'approved'){
             return trip;
         }
     })
-    console.log("PAST TRIPS: ", pastTrips)
-    console.log("PENDING: ", pendingTrips);
-    console.log("USERTRIP!!S: ", userTrips);
     
     pendingTripsBox.innerHTML ='';
     if(pendingTrips.length === 0){
@@ -88,7 +97,7 @@ export const loadDashBoard = (mainData) => {
         upcomingTripsBox.innerHTML += generateTripCards(trip);
        
     })}
-    lastYearCostElement.innerText = `Total costs this year: $`;
+    thisYearCostElement.innerText = `Total costs this year: $${yearlySpent}`;
 }
 
 export const loadTripRequestPage = () => {
@@ -96,6 +105,10 @@ export const loadTripRequestPage = () => {
     travelRequestPage.classList.remove('hidden');
     previousTripsBox.classList.remove('hidden');
     pendingTripsBox.classList.add('hidden')
+    previousTripsButton.classList.add('selected');
+    pendingTripsButton.classList.remove('selected');
+    upcomingTravelButton.classList.remove('selected');
+    upcomingTripsBox.classList.add('hidden');
 }
 
 export const displayRequestedTrips = (destinationCards) => {
@@ -150,6 +163,9 @@ export const displayPendingTrips = () =>{
     pendingTripsBox.classList.remove('hidden');
     upcomingTripsBox.classList.add('hidden');
     previousTripsBox.classList.add('hidden');
+    previousTripsButton.classList.remove('selected');
+    pendingTripsButton.classList.add('selected');
+    upcomingTravelButton.classList.remove('selected');
 
 }
 
@@ -157,12 +173,18 @@ export const displayPreviousTrips = () => {
     pendingTripsBox.classList.add('hidden');
     upcomingTripsBox.classList.add('hidden');
     previousTripsBox.classList.remove('hidden');
+    previousTripsButton.classList.add('selected');
+    pendingTripsButton.classList.remove('selected');
+    upcomingTravelButton.classList.remove('selected');
 }
 
 export const displayUpcomingTrips = () => {
     upcomingTripsBox.classList.remove('hidden');
     pendingTripsBox.classList.add('hidden');
     previousTripsBox.classList.add('hidden');
+    previousTripsButton.classList.remove('selected');
+    pendingTripsButton.classList.remove('selected');
+    upcomingTravelButton.classList.add('selected');
 }
 
 
@@ -170,3 +192,17 @@ durationInput.addEventListener('input', () => {
     durationOutput.innerText = durationInput.value;
 })
 
+export const returnToDashFromSearch = () =>{
+    dashboardpage.classList.remove('hidden');
+    travelRequestPage.classList.add('hidden');
+}
+
+export const returnToSearch = () =>{
+    travelRequestPage.classList.remove('hidden');
+    requestTravelPage.classList.add('hidden');
+}
+
+export const returnToDashFromSearchDestinations = () => {
+    requestTravelPage.classList.add('hidden');
+    dashboardpage.classList.remove('hidden')
+}

@@ -33,11 +33,21 @@ import {
     upcomingTravelButton,
     displayUpcomingTrips,
     invalidDateWarning,
+    returntoDashboardButton,
+    returnToDashFromSearch,
+    returnToSearch,
+    returnToSearchButton,
+    returnToDashFromSearchButton,
+    returnToDashFromSearchDestinations,
+    inputNameField,
+    inputPasswordField,
+    invalidLoginMessage,
 } from './domUpdates'
 
 import {
     getUserTripsWithDestinationInfo,
     makeDestinationCards,
+    validateLogin,
 } from './functions'
 
 import { 
@@ -46,11 +56,12 @@ import {
     postVacationRequest,
  } from './apiCalls'
 
-console.log('This is the JavaScript entry file - your code begins here.');
+
 
 
 const mainData = {};
 
+document.addEventListener("DOMContentLoaded", () => {
 Promise.all(createFetchRequest())
 .then( (data) => {
     mainData.travelers = data[0].travelers;
@@ -58,13 +69,21 @@ Promise.all(createFetchRequest())
     mainData.destinations = data[2].destinations;
     }
 )
+});
 
 loginButton.addEventListener('click', () => {
-    singleFetchRequest('http://localhost:3001/api/v1/travelers/38')
+    let loginName = inputNameField.value;
+    let loginPass = inputPasswordField.value;
+    if(validateLogin(loginName, loginPass) !== true){
+        console.log("BAD LOGIN");
+        invalidLoginMessage.classList.remove('hidden');
+        return
+    }
+    let id = loginName.slice(8);
+    singleFetchRequest(`http://localhost:3001/api/v1/travelers/${id}`)
     .then(data => {
         mainData.currentUser = data;
         mainData.userTrips = mainData.trips.filter(trip => trip.userID === mainData.currentUser.id);
-        console.log("USER TRIPS 1ST: ", mainData.userTrips)
         loadDashBoard(mainData);
         getUserTripsWithDestinationInfo(mainData.userTrips, mainData.destinations);
     })
@@ -82,7 +101,6 @@ submitTravelRequestButton.addEventListener('click', () => {
     const duration = parseInt(durationInput.value);
     if(!dateInput.isValid() || dateInput.isBefore(today)){
         invalidDateWarning.classList.remove('hidden');
-        console.log("WRONG DATE")
         return;
     }
     invalidDateWarning.classList.add('hidden');
@@ -96,8 +114,8 @@ submitTravelRequestButton.addEventListener('click', () => {
 
 travelRequestDisplayBox.addEventListener('click', (e) => {
     let target = e.target;
-    if(target.tagName === 'BUTTON'){
-        console.log("button clicked");
+    if(target.tagName === 'BUTTON' && target.id !== 'return-to-search' && target.id !== 'return-to-dash-from-search'){
+
     }
     else{
         return;
@@ -107,10 +125,8 @@ travelRequestDisplayBox.addEventListener('click', (e) => {
     .then( () => {
         singleFetchRequest('http://localhost:3001/api/v1/trips')
         .then(data => {
-            console.log(data)
             mainData.trips = data.trips;
             mainData.userTrips = mainData.trips.filter(trip => trip.userID === mainData.currentUser.id);
-            console.log("USER TRIPS AFTER : ",mainData.userTrips)
             displayBookedTrip(chosenVacation);
     })
         .catch(error => console.log(error));
@@ -120,13 +136,10 @@ travelRequestDisplayBox.addEventListener('click', (e) => {
 displayBookingPage.addEventListener('click', (e) => {
     let target = e.target;
     if(target.tagName === 'BUTTON'){
-        console.log("BUTTON CLICKED");
-        
-        loadDashBoard(mainData);
-
+       loadDashBoard(mainData);
     }
     else{
-        console.log("TEST")
+        
         return;
     }
 })
@@ -143,6 +156,14 @@ upcomingTravelButton.addEventListener('click', () =>{
     displayUpcomingTrips();
 })
 
+returntoDashboardButton.addEventListener('click', () =>{
+    returnToDashFromSearch();
+})
 
+returnToSearchButton.addEventListener('click', () => {
+    returnToSearch();
+})
 
-
+returnToDashFromSearchButton.addEventListener('click', () => {
+    returnToDashFromSearchDestinations();
+})

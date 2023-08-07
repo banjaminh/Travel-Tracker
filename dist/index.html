@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +16,16 @@
     <div class="login-box">
       <div class="input-box">
       <label for="input-name">Name:</label>
-      <input id="input-name class="input-name" type="text"/>
+      <input id="input-name" class="input-name login-inputs" type="text"/>
     </div>
     <div class="input-box">
       <label for="input-password">Password:</label>
-      <input id="input-password" class="input-password" type="password" />
+      <input id="input-password" class="input-password login-inputs" type="password" />
     </div>
       <button class="login-button">Login</button>
+      <div class="invalid-login-box">
+      <p class="invalid-login hidden" id="invalid-login">Invalid credentials</p>
+      </div>
     </div>
   </div>
   <div class="dashboard-page hidden">
@@ -39,7 +45,7 @@
     <nav class="dashboard-nav">
       <button class="dash-nav request-travel">Find New Trip</button>
       <button class="dash-nav pending-trips-button">Pending Trips</button>
-      <button class="dash-nav previous-trips-button">Previous Trips</button>
+      <button class="dash-nav previous-trips-button selected">Previous Trips</button>
       <button class="dash-nav upcoming-travel">Upcoming Trips</button>
     </nav>
     <div class="user-trips-box">
@@ -83,13 +89,17 @@
         <output for="duration-input" id="duration-input-value">10</output>
       </div>
       <div class="travel-input-button-wrapper">
-      <button id="travel-request-input-button">Search for destinations</button>
+      <button id="travel-request-input-button" class="search-buttons">Search for destinations</button>
+      <button id="return-to-dash" class="search-buttons">Return to dashboard</button>
       </div>
     </article>
   </div>
   <div class="requested-travel-page hidden">
     <section class="requested-travel-box">
-      <button id="return-to-search">Edit search criteria</button>
+      <div class="vacation-buttons-wrapper">
+        <button class="vacation-buttons" id="return-to-search">Edit search</button>
+        <button class="vacation-buttons" id="return-to-dash-from-search">Return to dashboard</button>
+      </div>
       <div class="display-travel-request-cards">
       </div>
     </section>
