@@ -49,6 +49,7 @@ export const loadDashBoard = (mainData) => {
     dashboardpage.classList.remove('hidden')
     userName.innerText = mainData.currentUser.name;
     let userTrips = getUserTripsWithDestinationInfo(mainData.userTrips, mainData.destinations);
+    console.log(userTrips);
     let pendingTrips = userTrips.filter(trip => trip.dates.startsWith("2023") && trip.status === 'pending');
     let pastTrips = userTrips.filter(trip => !trip.dates.startsWith("2023"));
     let thisYearTrips = userTrips.filter(trip => trip.dates.startsWith("2023"));
@@ -119,7 +120,7 @@ export const displayRequestedTrips = (destinationCards) => {
     destinationCards.forEach(card => {
     requestedDestinationsDisplay.innerHTML += `
     <article class="vacation-card">
-            <img src=${card.image}>
+            <img src=${card.image} alt=${card.alt}>
             <h2 class="trip-name">${card.name}</h2>
             <p class="traveler-amount">Travelers: ${card.travelers}</p>
             <p class="trip-dates">Date: ${card.date}</p>
@@ -137,7 +138,7 @@ export const displayBookedTrip = (chosenVacation) => {
     bookedVacationCard.innerHTML = '';
     bookedVacationCard.innerHTML += `
     <article class="vacation-card">
-            <img src=${chosenVacation.image}>
+            <img src=${chosenVacation.image} alt=${chosenVacation.alt}>
             <h2 class="trip-name">${chosenVacation.name}</h2>
             <p class="traveler-amount">Travelers: ${chosenVacation.travelers}</p>
             <p class="trip-dates">Date: ${chosenVacation.date}</p>
@@ -148,9 +149,10 @@ export const displayBookedTrip = (chosenVacation) => {
 }
 
 export const generateTripCards = (trip) => {
+    console.log("TRIP" ,trip)
     return `
     <article class="trip-card">
-        <img src=${trip.image}>
+        <img src=${trip.image} alt=${trip.alt}>
         <h2 class="trip-name">${trip.name}</h2>
         <p class="traveler-amount">Travelers: ${trip.travelers}</p>
         <p class="trip-dates">Dates: ${trip.dates}</p>

@@ -62,8 +62,8 @@ import {
 const mainData = {};
 
 document.addEventListener("DOMContentLoaded", () => {
-Promise.all(createFetchRequest())
-.then( (data) => {
+    Promise.all(createFetchRequest())
+    .then( (data) => {
     mainData.travelers = data[0].travelers;
     mainData.trips = data[1].trips;
     mainData.destinations = data[2].destinations;
@@ -115,13 +115,12 @@ submitTravelRequestButton.addEventListener('click', () => {
 travelRequestDisplayBox.addEventListener('click', (e) => {
     let target = e.target;
     if(target.tagName === 'BUTTON' && target.id !== 'return-to-search' && target.id !== 'return-to-dash-from-search'){
-
     }
     else{
         return;
     }
     let chosenVacation = mainData.possibleVacations[target.id];
-    postVacationRequest(chosenVacation, mainData.currentUser.id,mainData.trips.length)
+    postVacationRequest(chosenVacation, mainData.currentUser.id)
     .then( () => {
         singleFetchRequest('http://localhost:3001/api/v1/trips')
         .then(data => {
