@@ -7,7 +7,14 @@ const urls = [travelsUrl,allTripsUrl,destinationsUrl]
 export const createFetchRequest = () => {
     return urls.map((url) =>
         fetch(url)
-            .then((response) => response.json())
+        .then(response => {
+          if(!response.ok){
+            throw new Error('Network response was not ok');
+          }
+          else{
+            return response.json();
+          }
+        })
             .catch((error) => console.log(error))
     );
 };
@@ -15,12 +22,19 @@ export const createFetchRequest = () => {
 
 export const singleFetchRequest = (url) => {
     return fetch(url)
-    .then(response => response.json())
+    .then(response => {
+      if(!response.ok){
+        throw new Error('Network response was not ok');
+      }
+      else{
+        return response.json();
+      }
+    })
 }
 
-export const postVacationRequest = (vacation, userID,tripID) => {
+export const postVacationRequest = (vacation, userID) => {
     let data = {
-        id: tripID+1, 
+        id: Date.now(), 
         userID: userID, 
         destinationID: vacation.destinationID, 
         travelers: vacation.travelers, 
@@ -35,6 +49,14 @@ export const postVacationRequest = (vacation, userID,tripID) => {
         headers: {
           'Content-Type': 'application/json',
         },
+      })
+      .then(response => {
+        if(!response.ok){
+          throw new Error('Network response was not ok');
+        }
+        else{
+          return response.json();
+        }
       })
       .catch((error) => {
         alert(error);
