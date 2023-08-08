@@ -20,25 +20,22 @@ This project was our first chance to practice accessing and updating API dataset
 
 
 ## Learning Goals and Objectives
-### Week One:
 1. Use object and array prototype methods to perform data manipulation.  
 2. Create a user interface that is easy to use and displays information in a clear way.  
 3. Write DRY, reusable code that follows SRP and trends toward function purity. 
 4. Implement a robust testing suite using TDD.  
-5. Make network requests to retrieve data.  
-6. Collaborate productively and professionally as a team. Ensure all team members are able to be heard and contribute throughout the project.
+5. Make network requests to retrieve data.
+6. Work with a local server and make network requests to API endpoints to retrieve and manipulate data.
+7. Ensure your app follows best practices for accessibility. 
 
-### Week Two:
-1. Work with a local server and make network requests to API endpoints to retrieve and manipulate data.  
-2.  Ensure your app follows best practices for accessibility.  
-3.  Implement feedback from a usability test to improve product.
+
 
 ## Authors
 * **Banjamin Hatch** -  [banjaminh](https://github.com/banjaminh)
 
 
 ## 📷 Preview
-![FitLit_Preview](https://user-images.githubusercontent.com/130857864/257337005-add85e35-e412-4629-82bd-51f99e63ff4d.gif)
+![ezgif com-video-to-gif](https://github.com/banjaminh/Travel-Tracker/assets/128344939/a26a41d2-4d3a-4049-a229-6115a125cfa3)
 
 
 ## 💻 Technologies Used
@@ -75,3 +72,4 @@ Paste this link into your web browser:
 To Run Test Suite:
 
 `npm test`
+
