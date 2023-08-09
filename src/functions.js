@@ -73,15 +73,23 @@ export const calculaterYearlyCost = (trips) => {
 }
 
 export const validateLogin = (name,pass) => {
+    let lengthCheck = false;
+    let nameLength = name.length;
+    let trimNamelength = name.replaceAll(' ', '').length
+    let trimPeriodsLength = name.replaceAll('.','').length
+    if ( nameLength === trimNamelength && nameLength === trimPeriodsLength){
+        lengthCheck = true;
+    }
     let idNum = Number(name.slice(8));
     let firstEight = name.slice(0,8);
     if(pass !== 'travel'){
         return false;
     }
-    if(Number.isInteger(idNum) && firstEight === 'traveler' && idNum < 51 && idNum > 0){
+    if(Number.isInteger(idNum) && firstEight === 'traveler' && idNum < 51 && idNum > 0 && lengthCheck){
         return true;
     }
-    else if (firstEight !== 'traveler' || idNum < 1 || idNum > 50 || Number.isInteger(idNum) !== true){
+    else{
+    
         return false;
     }
 }

@@ -75,7 +75,6 @@ loginButton.addEventListener('click', () => {
     let loginName = inputNameField.value;
     let loginPass = inputPasswordField.value;
     if(validateLogin(loginName, loginPass) !== true){
-        console.log("BAD LOGIN");
         invalidLoginMessage.classList.remove('hidden');
         return
     }

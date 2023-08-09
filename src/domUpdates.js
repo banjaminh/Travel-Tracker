@@ -49,7 +49,6 @@ export const loadDashBoard = (mainData) => {
     dashboardpage.classList.remove('hidden')
     userName.innerText = mainData.currentUser.name;
     let userTrips = getUserTripsWithDestinationInfo(mainData.userTrips, mainData.destinations);
-    console.log(userTrips);
     let pendingTrips = userTrips.filter(trip => trip.dates.startsWith("2023") && trip.status === 'pending');
     let pastTrips = userTrips.filter(trip => !trip.dates.startsWith("2023"));
     let thisYearTrips = userTrips.filter(trip => trip.dates.startsWith("2023"));
@@ -149,7 +148,6 @@ export const displayBookedTrip = (chosenVacation) => {
 }
 
 export const generateTripCards = (trip) => {
-    console.log("TRIP" ,trip)
     return `
     <article class="trip-card">
         <img src=${trip.image} alt=${trip.alt}>
